@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Analytics Demo</title>
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id=GTM-XXXXXXX'+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header>
+    <h1>Web Analytics Demo</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="product-demo.html?product=SolarPanel&color=Black">Products</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="intro">
+    <h2>Welcome to our dataLayer Demo</h2>
+    <p>This page demonstrates how to use the dataLayer for web analytics.</p>
+    <button id="cta-button">Click Me!</button>
+  </section>
+
+  <section id="products">
+    <h2>Products</h2>
+    <div class="product-card" data-product-id="A" data-product-name="Product A" data-product-price="19.99">
+      <h3>Product A</h3>
+      <p>$19.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+    <div class="product-card" data-product-id="B" data-product-name="Product B" data-product-price="29.99">
+      <h3>Product B</h3>
+      <p>$29.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+    <div class="product-card" data-product-id="C" data-product-name="Product C" data-product-price="39.99">
+      <h3>Product C</h3>
+      <p>$39.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Web Analytics Demo</p>
+  </footer>
+
+  <script src="js/analytics.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      event: 'page_view',
+      pageCategory: 'demo',
+      userStatus: 'new_visitor',
+      timestamp: new Date().toISOString()
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('source')) {
+        dataLayer.push({
+          event: 'campaignSourceDetected',
+          source: urlParams.get('source'),
+          timestamp: new Date().toISOString()
+        });
+      }
+      document.getElementById('cta-button').addEventListener('click', function() {
+        dataLayer.push({
+          event: 'cta_click',
+          buttonName: 'Click Me!',
+          timestamp: new Date().toISOString()
+        });
+      });
+      document.querySelectorAll('.add-to-cart').forEach(btn => {
+        const card = btn.closest('.product-card');
+        btn.addEventListener('click', () => {
+          dataLayer.push({
+            event: 'add_to_cart',
+            product: {
+              id: card.dataset.productId,
+              name: card.dataset.productName,
+              price: card.dataset.productPrice
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
