@@ -1,46 +1,87 @@
-<!-- Exercise 2: Multiple Query Parameters -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Exercise 2: Multiple Query Parameters</title>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const productName  = urlParams.get('product') || 'Product';
-            const productColor = urlParams.get('color')   || 'Default';
-            const examplePrice = 49.99;  // Du kan byta till dynamiskt värde om du vill
-            
-            // Update H1 with both parameters
-            if (urlParams.has('product') || urlParams.has('color')) {
-                document.getElementById('product-heading').innerText =
-                    `${productName} – ${productColor}`;
-                
-                // Initialize dataLayer
-                window.dataLayer = window.dataLayer || [];
-                
-                // Push enhanced ecommerce productView event
-                window.dataLayer.push({
-                    event: 'productView',
-                    ecommerce: {
-                        items: [{
-                            item_id:      productName,
-                            item_name:    productName,
-                            item_variant: productColor,
-                            price:        examplePrice,
-                            currency:     'USD'
-                        }]
-                    },
-                    pageCategory: 'demo-product',
-                    timestamp:    new Date().toISOString()
-                });
-                
-                console.log('Enhanced productView:', window.dataLayer);
-            }
-        });
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Demo</title>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id=GTM-NFBJC7SR'+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NFBJC7SR');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-    <h1 id="product-heading">Product Information</h1>
-    <p>Try adding <code>?product=Laptop&color=Silver</code> to the URL</p>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFBJC7SR"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header>
+    <h1>Web Analytics Demo</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="product-demo.html?product=Product%20A&color=Black&price=19.99">Products</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="examples/">Examples</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2 id="product-heading">Product Information</h2>
+    <p>Try adding <code>?product=Laptop&color=Silver&price=49.99</code> to the URL</p>
+  </main>
+
+  <footer>
+    <p>© 2025 Web Analytics Demo</p>
+  </footer>
+
+  <script src="js/analytics.js"></script>
+  <script>
+    // E-commerce produktvy på produkt­sidan
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      const id    = params.get('product');
+      const color = params.get('color');
+      const price = parseFloat(params.get('price')||0);
+
+      if (id) {
+        document.getElementById('product-heading')
+                .innerText = `${id} – ${color}`;
+
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+          event: 'view_item',
+          ecommerce: {
+            items: [{
+              item_id:      id,
+              item_name:    id,
+              item_variant: color,
+              price:        price,
+              currency:     'USD'
+            }]
+          },
+          pageCategory: 'demo-product',
+          timestamp:    new Date().toISOString()
+        });
+        console.log('Pushed view_item:', dataLayer.slice(-1)[0]);
+      }
+    });
+  </script>
 </body>
 </html>
