@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout – Web Analytics Demo</title>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id=GTM-NFBJC7SR'+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NFBJC7SR');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- GTM noscript -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFBJC7SR"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <h1>Web Analytics Demo</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="product-demo.html?product=Product%20A&color=Black&price=19.99">Products</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="examples/">Examples</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="checkout-page">
+    <h2>Checkout</h2>
+    <p>Review your items and click below to complete your purchase.</p>
+    <!-- Här listar vi statiskt samma produkter som view_item_list -->
+    <ul>
+      <li>Product A – $19.99</li>
+      <li>Product B – $29.99</li>
+      <li>Product C – $39.99</li>
+    </ul>
+    <p><strong>Total: $89.97 USD</strong></p>
+    <button id="begin-checkout">Proceed to Purchase</button>
+  </main>
+
+  <footer><p>© 2025 Web Analytics Demo</p></footer>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    // 1) Sida laddad
+    dataLayer.push({
+      event: 'page_view',
+      pageCategory: 'demo-checkout',
+      timestamp: new Date().toISOString()
+    });
+
+    // 2) Börja checkout
+    dataLayer.push({
+      event: 'begin_checkout',
+      ecommerce: {
+        items: [
+          { item_id: 'A', item_name: 'Product A', price: 19.99, currency: 'USD' },
+          { item_id: 'B', item_name: 'Product B', price: 29.99, currency: 'USD' },
+          { item_id: 'C', item_name: 'Product C', price: 39.99, currency: 'USD' }
+        ]
+      },
+      timestamp: new Date().toISOString()
+    });
+
+    // 3) Gå vidare till purchase
+    document.getElementById('begin-checkout').addEventListener('click', function() {
+      // Simulera köp
+      dataLayer.push({
+        event: 'purchase',
+        ecommerce: {
+          transaction_id: 'T' + Date.now(),
+          value: 89.97,
+          currency: 'USD',
+          items: [
+            { item_id: 'A', item_name: 'Product A', price: 19.99, currency: 'USD' },
+            { item_id: 'B', item_name: 'Product B', price: 29.99, currency: 'USD' },
+            { item_id: 'C', item_name: 'Product C', price: 39.99, currency: 'USD' }
+          ]
+        },
+        timestamp: new Date().toISOString()
+      });
+      // Skicka användaren till tack-sidan
+      window.location = 'thank-you.html';
+    });
+  </script>
+</body>
+</html>
