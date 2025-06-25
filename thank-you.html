@@ -63,21 +63,26 @@
     });
 
     // 2) Purchase – ren datalagerpush
-    dataLayer.push({
-      event: 'purchase',
-      ecommerce: {
-        transaction_id: 'T' + Date.now(),
-        value: 89.97,
-        currency: 'USD',
-        items: [
-          { item_id: 'A', item_name: 'Product A', price: 19.99, currency: 'USD' },
-          { item_id: 'B', item_name: 'Product B', price: 29.99, currency: 'USD' },
-          { item_id: 'C', item_name: 'Product C', price: 39.99, currency: 'USD' }
-        ]
-      },
-      pageCategory: 'demo-thankyou',
-      timestamp: new Date().toISOString()
-    });
+    // Så fort thank-you.html laddas
+  dataLayer.push({
+  event: 'purchase',
+  ecommerce: {
+    transaction_id: 'T' + Date.now(),    // Unikt ordernummer
+    affiliation:    'Web Analytics Demo',// Affiliation/affärsenhet
+    value:          89.97,               // Total order‐summa
+    tax:            0,                   // Moms
+    shipping:       0,                   // Fraktkostnad
+    currency:       'USD',
+    items: [
+      { item_id: 'A', item_name: 'Product A', price: 19.99, currency: 'USD' },
+      { item_id: 'B', item_name: 'Product B', price: 29.99, currency: 'USD' },
+      { item_id: 'C', item_name: 'Product C', price: 39.99, currency: 'USD' }
+    ]
+  },
+  pageCategory: 'demo-thankyou',
+  timestamp:    new Date().toISOString()
+});
+
   </script>
 </body>
 </html>
