@@ -64,18 +64,22 @@
       timestamp: new Date().toISOString()
     });
 
-    // 2) Börja checkout
-    dataLayer.push({
-      event: 'begin_checkout',
-      ecommerce: {
-        items: [
-          { item_id: 'A', item_name: 'Product A', price: 19.99, currency: 'USD' },
-          { item_id: 'B', item_name: 'Product B', price: 29.99, currency: 'USD' },
-          { item_id: 'C', item_name: 'Product C', price: 39.99, currency: 'USD' }
-        ]
-      },
-      timestamp: new Date().toISOString()
-    });
+  // När sidan laddas (checkout.html)
+dataLayer.push({
+  event: 'begin_checkout',
+  ecommerce: {
+    // Standardfält för begin_checkout
+    items: [
+      { item_id: 'A', item_name: 'Product A', price: 19.99, currency: 'USD' },
+      { item_id: 'B', item_name: 'Product B', price: 29.99, currency: 'USD' },
+      { item_id: 'C', item_name: 'Product C', price: 39.99, currency: 'USD' }
+    ],
+    value:    89.97,    // Totalvärde
+    currency: 'USD'
+  },
+  pageCategory: 'demo-checkout',
+  timestamp:    new Date().toISOString()
+});
 
     // 3) Gå vidare till purchase
     document.getElementById('begin-checkout').addEventListener('click', function() {
