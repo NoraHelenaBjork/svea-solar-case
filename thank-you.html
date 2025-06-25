@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You – Web Analytics Demo</title>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id=GTM-NFBJC7SR'+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NFBJC7SR');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- GTM noscript -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFBJC7SR"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <h1>Web Analytics Demo</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="product-demo.html?product=Product%20A&color=Black&price=19.99">Products</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="examples/">Examples</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="thank-you-page">
+    <h2>Thank You for Your Purchase!</h2>
+    <p>Your order has been confirmed.</p>
+    <p><a href="index.html">Back to Home</a></p>
+  </main>
+
+  <footer><p>© 2025 Web Analytics Demo</p></footer>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    // Sida laddad på tack-sidan
+    dataLayer.push({
+      event: 'page_view',
+      pageCategory: 'demo-thankyou',
+      timestamp: new Date().toISOString()
+    });
+
+    // (Notera: purchase redan skickades från checkout.html när knappen klickades)
+  </script>
+</body>
+</html>
