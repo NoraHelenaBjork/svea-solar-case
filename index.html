@@ -49,20 +49,22 @@
 
   <section id="products">
     <h2>Products</h2>
-    <div class="product-card" data-product-id="A" data-product-name="Product A" data-product-price="19.99">
-      <h3>Product A</h3>
-      <p>$19.99</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-    <div class="product-card" data-product-id="B" data-product-name="Product B" data-product-price="29.99">
-      <h3>Product B</h3>
-      <p>$29.99</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-    <div class="product-card" data-product-id="C" data-product-name="Product C" data-product-price="39.99">
-      <h3>Product C</h3>
-      <p>$39.99</p>
-      <button class="add-to-cart">Add to Cart</button>
+    <div class="product-grid">
+      <div class="product" data-product-id="A" data-product-name="Product A" data-product-price="19.99">
+        <h3>Product A</h3>
+        <p>$19.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product" data-product-id="B" data-product-name="Product B" data-product-price="29.99">
+        <h3>Product B</h3>
+        <p>$29.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product" data-product-id="C" data-product-name="Product C" data-product-price="39.99">
+        <h3>Product C</h3>
+        <p>$39.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
     </div>
   </section>
 
@@ -96,7 +98,7 @@
         });
       });
       document.querySelectorAll('.add-to-cart').forEach(btn => {
-        const card = btn.closest('.product-card');
+        const card = btn.closest('.product');
         btn.addEventListener('click', () => {
           dataLayer.push({
             event: 'add_to_cart',
