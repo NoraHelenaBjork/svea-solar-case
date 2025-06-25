@@ -27,7 +27,7 @@
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFBJC7SR"
             height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  <!-- End Google Tag Manager -->
 
   <header>
     <h1>Web Analytics Demo</h1>
@@ -51,20 +51,30 @@
     <p>© 2025 Web Analytics Demo</p>
   </footer>
 
-  <script src="js/analytics.js"></script>
   <script>
-    // E-commerce produktvy på produkt­sidan
+    window.dataLayer = window.dataLayer || [];
+
+    // 1) Sidan laddad – standard page_view:
+    dataLayer.push({
+      event: 'page_view',
+      pageCategory: 'demo-product',
+      userStatus: 'new_visitor',
+      timestamp: new Date().toISOString()
+    });
+
+    // 2) När URL-parametrarna finns, push av view_item
     document.addEventListener('DOMContentLoaded', function() {
       const params = new URLSearchParams(window.location.search);
       const id    = params.get('product');
       const color = params.get('color');
-      const price = parseFloat(params.get('price')||0);
+      const price = parseFloat(params.get('price') || 0);
 
       if (id) {
+        // uppdatera rubriken
         document.getElementById('product-heading')
                 .innerText = `${id} – ${color}`;
 
-        window.dataLayer = window.dataLayer || [];
+        // skicka ecommerce-view_item
         dataLayer.push({
           event: 'view_item',
           ecommerce: {
