@@ -34,7 +34,7 @@
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="product-demo.html?product=SolarPanel&color=Black">Products</a></li>
+        <li><a href="product-demo.html?product=SolarPanel&color=Black&price=19.99">Products</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="examples/">Examples</a></li>
@@ -73,17 +73,38 @@
     <p>© 2025 Web Analytics Demo</p>
   </footer>
 
+  <!-- Kalla in ditt egna analytics.js om du har extra logik -->
   <script src="js/analytics.js"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
+
+    // 1) Sida laddad
     dataLayer.push({
       event: 'page_view',
-      pageCategory: 'demo',
+      pageCategory: 'demo-home',
       userStatus: 'new_visitor',
       timestamp: new Date().toISOString()
     });
+
+    // 2) Produktlista-visning (view_item_list)
+    dataLayer.push({
+      event: 'view_item_list',
+      ecommerce: {
+        items: [
+          { item_id: 'A', item_name: 'Product A', price: 19.99, currency: 'USD' },
+          { item_id: 'B', item_name: 'Product B', price: 29.99, currency: 'USD' },
+          { item_id: 'C', item_name: 'Product C', price: 39.99, currency: 'USD' }
+        ]
+      },
+      pageCategory: 'demo-home',
+      timestamp: new Date().toISOString()
+    });
+
+    // 3) Övriga event på sidan
     document.addEventListener('DOMContentLoaded', function() {
       const urlParams = new URLSearchParams(window.location.search);
+
+      // kampanjkälla
       if (urlParams.has('source')) {
         dataLayer.push({
           event: 'campaignSourceDetected',
@@ -91,6 +112,8 @@
           timestamp: new Date().toISOString()
         });
       }
+
+      // CTA-knapp
       document.getElementById('cta-button').addEventListener('click', function() {
         dataLayer.push({
           event: 'cta_click',
@@ -98,16 +121,22 @@
           timestamp: new Date().toISOString()
         });
       });
+
+      // Add to cart
       document.querySelectorAll('.add-to-cart').forEach(btn => {
         const card = btn.closest('.product');
         btn.addEventListener('click', () => {
           dataLayer.push({
             event: 'add_to_cart',
-            product: {
-              id: card.dataset.productId,
-              name: card.dataset.productName,
-              price: card.dataset.productPrice
-            }
+            ecommerce: {
+              items: [{
+                item_id:   card.dataset.productId,
+                item_name: card.dataset.productName,
+                price:     parseFloat(card.dataset.productPrice),
+                currency:  'USD'
+              }]
+            },
+            timestamp: new Date().toISOString()
           });
         });
       });
