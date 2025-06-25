@@ -124,6 +124,10 @@
       document.querySelectorAll('.add-to-cart').forEach(btn => {
         const card = btn.closest('.product');
         btn.addEventListener('click', () => {
+          // Nollställ tidigare ecommerce-data
+          dataLayer.push({ ecommerce: null });
+
+          // Skicka enbart den här produkten
           dataLayer.push({
             event: 'add_to_cart',
             ecommerce: {
