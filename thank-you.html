@@ -22,9 +22,12 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <!-- GTM noscript -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFBJC7SR"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFBJC7SR"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager -->
 
   <header>
     <h1>Web Analytics Demo</h1>
@@ -45,19 +48,36 @@
     <p><a href="index.html">Back to Home</a></p>
   </main>
 
-  <footer><p>© 2025 Web Analytics Demo</p></footer>
+  <footer>
+    <p>© 2025 Web Analytics Demo</p>
+  </footer>
 
   <script>
     window.dataLayer = window.dataLayer || [];
 
-    // Sida laddad på tack-sidan
+    // 1) Sida laddad på tack-sidan
     dataLayer.push({
       event: 'page_view',
       pageCategory: 'demo-thankyou',
       timestamp: new Date().toISOString()
     });
 
-    // (Notera: purchase redan skickades från checkout.html när knappen klickades)
+    // 2) Purchase – ren datalagerpush
+    dataLayer.push({
+      event: 'purchase',
+      ecommerce: {
+        transaction_id: 'T' + Date.now(),
+        value: 89.97,
+        currency: 'USD',
+        items: [
+          { item_id: 'A', item_name: 'Product A', price: 19.99, currency: 'USD' },
+          { item_id: 'B', item_name: 'Product B', price: 29.99, currency: 'USD' },
+          { item_id: 'C', item_name: 'Product C', price: 39.99, currency: 'USD' }
+        ]
+      },
+      pageCategory: 'demo-thankyou',
+      timestamp: new Date().toISOString()
+    });
   </script>
 </body>
 </html>
